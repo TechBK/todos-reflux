@@ -2,8 +2,9 @@
  * Created by techbk on 27/01/2016.
  */
 
-var Reflux = require('reflux')
-var TodoActions = require('./actions')
+var Reflux = require('reflux');
+var TodoActions = require('./actions');
+var _ = require('lodash');
 
 
 // some variables and helpers for our fake database stuff
@@ -51,5 +52,35 @@ var todoListStore = Reflux.createStore({
         this.updateList(_.filter(this.list, function(item){
             return !item.isComplete;
         }));
+    },
+    // called whenever we change a list.
+    // normally this would mean a database API call
+    updateList: function(list){
+        localStorage.setItem(localStorageKey, JSON.stringify(list));
+        this.list = list;
+        this.trigger(list);
+    },
+    // this will be called by all listening components
+    // as they register their listeners
+    getDefaultData: function(){
+        var loadedList = localStorage.getItem(localStorageKey);
+        if (!loadedList) {
+            // If no list is in localstorage, start out with a default one
+            this.list = [{
+                key: todoCounter++,
+                created: new Date(),
+                isComplete: false,
+                label: 'Rule the web'
+            }];
+        } else {
+            this.list = _.map(JSON.parse(loadedList), function(item) {
+                // just resetting the key property for each todo item
+                item.key = todoCounter++;
+                return item;
+            });
+        }
+        return this.list;
     }
-})
+});
+
+module export todoListStore;

@@ -12,4 +12,4 @@ var TodoActions = Reflux.createActions([
     "editItem"
 ]);
 
-module.exports = TodoActions
+module.exports = TodoActions;
