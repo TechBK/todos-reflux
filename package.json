@@ -1,0 +1,18 @@
+{
+  "name": "todos-reflux",
+  "version": "0.0.1",
+  "description": "Test Project with ReFlux",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TechBK",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-react": "^6.3.13",
+    "babelify": "^7.2.0",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "reflux": "^0.3.0"
+  }
+}
